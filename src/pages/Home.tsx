@@ -7,9 +7,7 @@ import {
   Typography,
   Box,
   Button,
-  Chip,
   Fade,
-  Grow,
   TextField,
   IconButton,
   Dialog,
@@ -18,36 +16,21 @@ import {
     Grid,
 } from '@mui/material';
 import {
-  LocalFlorist as PlantIcon,
-  Forest as ForestIcon,
   Close as CloseIcon,
-  WaterDrop as WaterIcon,
   Redeem as RedeemIcon,
-  EmojiEvents as TrophyIcon,
   // CurrencyRupee as CurrencyRupeeIcon,
-  KeyboardDoubleArrowDown as KeyboardDoubleArrowDownIcon,
 } from '@mui/icons-material';
-import { motion } from "framer-motion";   // ✅ already tiny + tree-shakable
 // import Loader from '../components/ui/Loader';
 import LoaderOverlay from '../components/ui/LoaderOverlay';
 import KitCounter from '../components/ui/KitCounter';
 import type { RazorpayPaymentResponse } from '../types/razorpay';
 const ManualCouponFetchModal = lazy(() => import('../components/ui/ManualCouponFetchModal'));
 const SuperCouponModal = lazy(() => import('../components/ui/SuperCouponModal'));
-const PUBLIC_LOGO = 'https://www.supergreen.co.in/logo.png'; // Public Logo for Razorpay
-const MAXIMUM_TREE_COUNT = 10; // Set a maximum limit for tree planting at a time
+const PUBLIC_LOGO = 'https://www.superstudy.co.in/logo.png'; // Public Logo for Razorpay
+const MAXIMUM_KIT_COUNT = 10; // Set a maximum limit for education kit
 
-// stats data for her section
-const STATS_DATA = [
-  { icon: <ForestIcon />, text: "500+ Trees Planted", color: "nature-primary" },
-  { icon: <WaterIcon />, text: "Clean Air Generated", color: "nature-secondary" },
-  { icon: <PlantIcon />, text: "Lives Impacted", color: "nature-forest" }
-];
 // calculate price based on count 
 const calculatePrice = (count: number) => count * 99;
-// calculate co2 absorption based on count
-const calculateCO2 = (count: number) => count * 48;
-// get dynamic plant description based on count to display in impact info section
 
 const Home: React.FC = () => {
   const { pathname } = useLocation(); //for handling scroll to top on page load
@@ -107,11 +90,11 @@ const Home: React.FC = () => {
     const options = {
       "key": "rzp_live_RJpArHowLAOS2l", // live mode public key
       // "key": "rzp_test_RJp1B7TPct9hmi", //test mode public key
-      "amount": (calculatePrice(selectedCount) * 100).toString(), //live mdoe
-      // "amount": 100, //test mode
-      "name": "Super Green NGO",
+      // "amount": (calculatePrice(selectedCount) * 100).toString(), //live mdoe
+      "amount": 100, //test mode
+      "name": "Super Study",
       "image": PUBLIC_LOGO,
-      "description": `Plant ${selectedCount} Tree${selectedCount > 1 ? 's' : ''}`,
+      "description": `Donate ${selectedCount} Kit${selectedCount > 1 ? 's' : ''}`,
       "prefill": {
         "name": formData.name,
         "email": formData.email,
@@ -127,7 +110,7 @@ const Home: React.FC = () => {
         "customer_name": formData.name,
         "email": formData.email,
         "phone": formData.contact,
-        "tree_count": selectedCount.toString(),
+        "kit_count": selectedCount.toString(),
         "price_per_unit": "99",
         "total_calculation": `${selectedCount} * 99 = ${calculatePrice(selectedCount)}`,
       },
@@ -175,12 +158,12 @@ const Home: React.FC = () => {
     }
   };
 
-  // Adjust plant count with limits
+  // Adjust kit count with limits
   const adjustCount = useCallback((increment: boolean) => {
     setSelectedCount(prev => {
       if (increment) {
-        if (prev >= MAXIMUM_TREE_COUNT) {
-          toast.error(`You can plant a maximum of ${MAXIMUM_TREE_COUNT} trees at a time.`);
+        if (prev >= MAXIMUM_KIT_COUNT) {
+          // toast.error(`You can donate maximum of ${MAXIMUM_KIT_COUNT} kits at a time.`);
           return prev;
         }
         return prev + 1;
@@ -221,7 +204,7 @@ const Home: React.FC = () => {
   }, [isCouponError, couponError, paymentId, lastManualSubmission]);
 
 
-  // useefect for navigating to plant counter section initially
+  // useefect for navigating to kit counter section initially
   useEffect(() => {
     // Scroll to other section on page load
     const timer = setTimeout(()=>{
@@ -251,6 +234,8 @@ const Home: React.FC = () => {
           
           {/* Left Column: Text and Button */}
           <Grid size={{xs:12,md:6}}>
+             <Fade in={true} timeout={1000}>
+              <Box>
             <Typography
               variant="h2"
               className="text-white font-bold !mb-6 !font-display text-center md:text-left"
@@ -278,12 +263,13 @@ const Home: React.FC = () => {
                 Get Super Gold Coupon 🎁
               </Button>
             </Box>
+            </Box>
+            </Fade>
           </Grid>
 
           {/* Right Column: Image */}
           <Grid size={{xs:12,md:6}}>
             <Box className="relative h-80 md:h-96 w-full mt-8 md:mt-0">
-              {/* NOTE: Replaced Next.js <Image> with standard <img> and a placeholder for compatibility */}
               <img
                 src="poor-boy.webp"
                 alt="poor student"
@@ -384,10 +370,10 @@ const Home: React.FC = () => {
 
             <Box className="text-center bg-nature-light p-4 rounded-lg">
               <Typography variant="h6" className="text-nature-primary font-bold">
-                {selectedCount} Tree{selectedCount > 1 ? 's' : ''} - ₹{calculatePrice(selectedCount)}
+                {selectedCount} Kit{selectedCount > 1 ? 's' : ''} - ₹{calculatePrice(selectedCount)}
               </Typography>
               <Typography variant="body2" className="text-nature-dark">
-                {calculateCO2(selectedCount)} lbs of CO₂ absorbed annually
+               Students Impacted {selectedCount}
               </Typography>
             </Box>
 

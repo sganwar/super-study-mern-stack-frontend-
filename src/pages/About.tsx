@@ -43,6 +43,14 @@ const regions = [
 const About: React.FC = () => {
   // All Next.js imports and logic have been removed.
   
+
+      return (
+    <>
+    <p className='text-center py-5 my-5 font-mono'>coming soon</p>
+    </>
+  )
+
+
   return (
     <>
       <Box className="min-h-screen bg-white">
@@ -100,7 +108,7 @@ const About: React.FC = () => {
             <Typography variant="h3" className="font-bold text-center text-edu-primary !mb-12 !font-minimal" sx={{fontSize:{xs:'2rem',md:'2.8rem'}}}>
               What&apos;s Inside an Education Kit?
             </Typography>
-            <Grid container spacing={4}>
+            <Grid container spacing={{xs:2,md:4}}>
               {kitItems.map((item, idx) => (
                 <Grid size={{xs: 12, md: 4}} key={idx}> {/* CORRECTED Grid Item */}
                   <Card className="h-full hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
@@ -141,7 +149,7 @@ const About: React.FC = () => {
               <Typography variant="h3" className="font-bold text-edu-primary !mb-6 text-center md:text-left !font-minimal" sx={{fontSize:{xs:'2rem',md:'2.8rem'}}}>
                 Our Impact
               </Typography>
-              <Grid container spacing={3}>
+              <Grid container spacing={{xs:1,md:3}}>
                 {impactStats.map((stat, idx) => (
                   <Grid size={{xs: 6}} key={idx}> {/* CORRECTED Grid Item */}
                     <Box className={`${stat.color} text-white p-6 rounded-xl text-center shadow-lg`}>
@@ -163,11 +171,11 @@ const About: React.FC = () => {
             <Typography variant="h3" className="font-bold text-center !mb-12 !font-minimal" sx={{fontSize:{xs:'2rem',md:'2.8rem'}}}>
               Regions We Serve
             </Typography>
-            <Grid container spacing={{xs:2,md:4}} className='items-center'>
+            <Grid container spacing={{xs:1,md:4}} className='items-center'>
               {regions.map((region, idx) => (
                 <Grid size={{xs: 12, sm: 6, md: 3}} key={idx}> {/* CORRECTED Grid Item */}
                   <Box className="bg-white/10 backdrop-blur-sm p-6 rounded-xl text-center hover:bg-white/20 transition-all">
-                    <Typography variant="h6" className="font-semibold">
+                    <Typography variant="h6" className="!font-thin !font-accent tracking-tight">
                       {region}
                     </Typography>
                   </Box>

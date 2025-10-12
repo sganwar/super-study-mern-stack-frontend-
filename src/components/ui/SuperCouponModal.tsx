@@ -42,9 +42,65 @@ const SuperCouponModal: React.FC<SuperCouponModalProps> = memo(({
     }
   }, [open]);
 
+
+  // useeffect for making body hidden when this model opens, as document.body.style.overflow="hiddent" wont work directly.
+  useEffect(() => {
+  let scrollY = 0;
+  if (open) {
+    scrollY = window.scrollY || window.pageYOffset;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.overflow = 'hidden';
+    document.body.style.width = '100%';
+  } else {
+    // restore
+    const top = document.body.style.top;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.overflow = '';
+    document.body.style.width = '';
+    if (top) {
+      const restoreY = -parseInt(top || '0', 10);
+      window.scrollTo(0, restoreY);
+    }
+  }
+  return () => {
+    // cleanup in case component unmounts while open
+    const top = document.body.style.top;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.overflow = '';
+    document.body.style.width = '';
+    if (top) {
+      const restoreY = -parseInt(top || '0', 10);
+      window.scrollTo(0, restoreY);
+    }
+  };
+}, [open]);
+
   const handleCopy = async () => {
     try {
+       if (navigator.clipboard && window.isSecureContext) {
+      // Modern method (works on most browsers)
       await navigator.clipboard.writeText(couponCode);
+    } else {
+      // Fallback for mobile browsers or non-HTTPS
+      const textArea = document.createElement('textarea');
+      textArea.value = couponCode;
+      textArea.style.position = 'fixed'; // prevent scrolling to bottom on iOS
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+    }
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -88,7 +144,7 @@ const SuperCouponModal: React.FC<SuperCouponModalProps> = memo(({
         }
       }}
     >
-      <DialogContent className="p-0 relative" sx={{ p: { xs: 1, sm: 0 } }}>
+      <DialogContent className="p-0 relative" sx={{ p: { xs: 2, sm: 0 } }}>
         {/* Celebration Animation Background */}
         <Box className="absolute inset-0 pointer-events-none overflow-hidden">
           {showCelebration && generateSparkles()}
@@ -101,13 +157,14 @@ const SuperCouponModal: React.FC<SuperCouponModalProps> = memo(({
             className="bg-white shadow-lg"
             sx={{
               backgroundColor: 'white',
-              color: '#2E7D32',
+              color: '#2856acff',
+              padding:'0.1rem',
               '&:hover': {
                 backgroundColor: '#f5f5f5'
               }
             }}
           >
-            <CloseIcon />
+            <CloseIcon sx={{fontSize:{xs:'1.8rem',md:'2.2rem'}}}/>
           </IconButton>
         </Box>
 
@@ -148,7 +205,7 @@ const SuperCouponModal: React.FC<SuperCouponModalProps> = memo(({
               />
 
               {/* Ticket Content */}
-              <Box className="relative p-4 text-center" sx={{ p: { xs: 4, sm: 4 } }}>
+              <Box className="relative p-4 text-center" sx={{ p: { xs: 2, sm: 4 } }}>
                 {/* Header */}
                 <Typography
                   variant="h6"
@@ -161,12 +218,12 @@ const SuperCouponModal: React.FC<SuperCouponModalProps> = memo(({
                   GOLDEN TICKET
                 </Typography>
 
-                <Typography variant="body2" className="text-yellow-800 mb-4" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+                <Typography variant="body2" className="text-yellow-800 !mb-4" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
                   Thanks for empowering students!
                 </Typography>
 
                 {/* Coupon Code Section */}
-                <Box className="bg-yellow-800 bg-opacity-20 rounded-xl p-3 mb-3 border-2 border-yellow-700 border-dashed" sx={{ p: { xs: 2, sm: 2 } }}>
+                <Box className="bg-yellow-800 bg-opacity-20 rounded-xl !p-3 mb-3 border-2 border-yellow-700 border-dashed" sx={{ p: { xs: 2, sm: 2 } }}>
                   <Typography
                     variant="h4"
                     className="font-mono font-bold text-yellow-900 mb-2 tracking-widest"
@@ -180,11 +237,21 @@ const SuperCouponModal: React.FC<SuperCouponModalProps> = memo(({
                     startIcon={<CopyIcon />}
                     variant="contained"
                     size="small"
-                    className={`${copied ? 'bg-green-600' : 'bg-yellow-700'} hover:bg-yellow-800 text-white font-medium`}
+                    className={`${copied ? '!bg-green-600' : '!bg-yellow-700'} hover:!bg-yellow-800 text-white font-medium`}
                     sx={{ textTransform: 'none', fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
                   >
                     {copied ? '✓ Copied!' : 'Copy'}
                   </Button>
+
+                  <Typography
+                    variant="body2"
+                    className="font-mono text-yellow-900 !my-2 tracking-tight"
+                    sx={{ fontSize: { xs: '1rem', sm: '1.3rem' } }}
+                  >
+                    use this in our super gold app
+                  </Typography>
+
+
                 </Box>
 
                 {/* Payment ID Section */}
@@ -231,20 +298,20 @@ const SuperCouponModal: React.FC<SuperCouponModalProps> = memo(({
                Your kit will be donated soon! 
             </Typography>
 
-            <Box className="flex justify-center gap-4 text-white text-sm opacity-80">
-              <Box className="text-center">
-                <Typography variant="body2" className="font-bold" sx={{ fontSize: { xs: '0.8rem', sm: '1rem' } }}>🌍</Typography>
-                <Typography variant="caption" sx={{ fontSize: { xs: '0.6rem', sm: '0.75rem' } }}>Cleaner Air</Typography>
-              </Box>
-              <Box className="text-center">
-                <Typography variant="body2" className="font-bold" sx={{ fontSize: { xs: '0.8rem', sm: '1rem' } }}>🌳</Typography>
-                <Typography variant="caption" sx={{ fontSize: { xs: '0.6rem', sm: '0.75rem' } }}>Greener Earth</Typography>
-              </Box>
-              <Box className="text-center">
-                <Typography variant="body2" className="font-bold" sx={{ fontSize: { xs: '0.8rem', sm: '1rem' } }}>💚</Typography>
-                <Typography variant="caption" sx={{ fontSize: { xs: '0.6rem', sm: '0.75rem' } }}>Better Future</Typography>
-              </Box>
-            </Box>
+           <Box className="flex justify-center gap-4 text-white text-sm opacity-80">
+    <Box className="text-center">
+        <Typography variant="body2" className="font-bold" sx={{ fontSize: { xs: '0.8rem', sm: '1rem' } }}>🧠</Typography>
+        <Typography variant="caption" sx={{ fontSize: { xs: '0.6rem', sm: '0.75rem' } }}>Focused Learning</Typography>
+    </Box>
+    <Box className="text-center">
+        <Typography variant="body2" className="font-bold" sx={{ fontSize: { xs: '0.8rem', sm: '1rem' } }}>🌱</Typography>
+        <Typography variant="caption" sx={{ fontSize: { xs: '0.6rem', sm: '0.75rem' } }}>Smarter Growth</Typography>
+    </Box>
+    <Box className="text-center">
+        <Typography variant="body2" className="font-bold" sx={{ fontSize: { xs: '0.8rem', sm: '1rem' } }}>🚀</Typography>
+        <Typography variant="caption" sx={{ fontSize: { xs: '0.6rem', sm: '0.75rem' } }}>Brighter Future</Typography>
+    </Box>
+</Box>
           </Box>
         </Fade>
 
@@ -253,7 +320,7 @@ const SuperCouponModal: React.FC<SuperCouponModalProps> = memo(({
         <Box
           className="absolute inset-0 -z-20 rounded-2xl"
           style={{
-            background: 'linear-gradient(135deg, #2E7D32 0%, #388E3C 50%, #4CAF50 100%)',
+            background: 'linear-gradient(135deg, #2E7D32 0%, #38608eff 50%, #4ca0afff 100%)',
             filter: 'blur(1px)'
           }}
         />

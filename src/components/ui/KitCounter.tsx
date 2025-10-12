@@ -16,7 +16,7 @@ import { Grow } from '@mui/material';
 const MAXIMUM_KIT_COUNT = 10;
 const KIT_QUICK_OPTIONS = [1, 3, 5, 10];
 const KIT_COST = 99;
-const STUDENTS_PER_KIT = 2;
+const STUDENTS_PER_KIT = 1;
 
 function calculatePrice(count: number) {
   return count * KIT_COST;
@@ -208,7 +208,7 @@ const KitCounter: React.FC<KitCounterProps> = React.memo(
               </Box>
               <Box className="text-right">
                 <Typography variant="subtitle1" className="font-bold text-gray-700">
-                  Students Impacted
+                  Beneficiaries
                 </Typography>
                 <Typography variant="h5" className="font-extrabold" sx={{ color: 'var(--edu-dark)' }}>
                   {calculateStudentsImpacted(selectedCount)}+

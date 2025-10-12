@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
   const menuItems = [
     { text: 'Home', path: '/' },
     { text: 'About', path: '/about' },
-    { text: 'Products', path: '/products' },
+    { text: 'Apps', path: '/products' },
   ];
 
   const drawer = (
@@ -59,14 +59,14 @@ const Navbar: React.FC = () => {
             component={Link}
             to={item.path}
             onClick={handleDrawerToggle}
-            className={`mb-2 rounded-lg transition-all duration-300 hover:bg-edu-secondary ${location.pathname === item.path ? 'bg-edu-primary text-white' : 'text-edu-dark bg-white bg-opacity-50'
+            className={`mb-2 rounded-lg transition-all duration-300 hover:bg-edu-dark hover:text-white ${location.pathname === item.path ? 'bg-edu-primary !text-white' : 'text-edu-dark bg-white bg-opacity-50'
               }`}
           >
             <ListItemText
               primary={item.text}
               className="text-center"
               primaryTypographyProps={{
-                className: 'font-medium text-edu-dark'
+                className: 'font-medium'
               }}
             />
           </ListItem>

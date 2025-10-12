@@ -10,7 +10,6 @@ import {
   IconButton,
   Chip,
   Fade,
-  Grid,
   CircularProgress // 🎯 NEW IMPORT: For the spinner
 } from '@mui/material';
 import {
@@ -64,7 +63,8 @@ const PRODUCTS = [
 ];
 
 // --- MOBILE FRAME COMPONENT ---
-const MobileFrame = React.memo(({ media, isVideo = false, loadedImages, onLoaded, isLoading }: { 
+// const MobileFrame = React.memo(({ media, isVideo = false, loadedImages, onLoaded, isLoading }: { 
+const MobileFrame = React.memo(({ media, loadedImages, onLoaded, isLoading }: { 
   media: string; 
   isVideo?: boolean; 
   loadedImages: Record<string, boolean>;
@@ -97,12 +97,41 @@ const MobileFrame = React.memo(({ media, isVideo = false, loadedImages, onLoaded
 
   return (
     <Box className="relative mx-auto" sx={{ width: { xs: 250, md: 300 }, height: { xs: 500, md: 600 } }}>
-      {/* Phone Frame */}
+
+
+       {/* Power Button - Right Side (Centered on the 14px border) */}
+      <Box 
+          className="absolute right-0 top-[25%] w-[5px] h-10 rounded-sm bg-gray-500/80"
+          sx={{ right: '-3.5px' }} 
+      />
+      
+      {/* Volume Up Button - Left Side */}
+      <Box 
+          className="absolute left-0 top-[40%] w-[5px] h-10 rounded-sm bg-gray-500/80"
+          sx={{ left: '-3.5px' }}
+      />
+      
+      {/* Volume Down Button - Left Side */}
+      <Box 
+          className="absolute left-0 top-[55%] w-[5px] h-10 rounded-sm bg-gray-500/80"
+          sx={{ left: '-3.5px' }}
+      />
+
       <Box
         className="relative w-full h-full rounded-[3rem] border-[14px] border-gray-800 shadow-2xl overflow-hidden bg-black"
       >
         {/* Notch */}
-        <Box className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-gray-800 rounded-b-2xl z-10" />
+        <Box 
+            // The notch container, starting at the top of the screen/bezel edge
+            className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-gray-800 rounded-b-2xl z-20"
+        >
+            <Box className="absolute inset-0 flex items-center justify-center gap-2">
+                {/* Speaker/Receiver Slot (White) */}
+                <Box className="w-8 h-[3px] bg-white rounded-full" />
+                {/* Front Camera Lens (White) */}
+                <Box className="w-[6px] h-[6px] bg-white rounded-full border border-gray-400" />
+            </Box>
+        </Box>
         
         {/* Screen Content */}
         <Box className="w-full h-full overflow-hidden bg-white relative">
@@ -233,8 +262,8 @@ const AppShowcase = ({ app, index }: { app: typeof PRODUCTS[0]; index: number })
       className="py-16"
       sx={{
         background: index % 2 === 0
-          ? 'linear-gradient(135deg, #E3F2FD 0%, #fff 100%)'
-          : 'linear-gradient(135deg, #F5F7FA 0%, #fff 100%)'
+          ? 'linear-gradient(135deg, rgba(223, 199, 199, 0.9) 0%, #fff 100%)'
+          : 'linear-gradient(135deg, #9e9544ff 0%, #fff 100%)'
       }}
     >
       <Container maxWidth="lg">
@@ -255,7 +284,7 @@ const AppShowcase = ({ app, index }: { app: typeof PRODUCTS[0]; index: number })
               />
               
               {/* Navigation Buttons */}
-              <Box className="flex justify-center gap-4 mt-8">
+              <Box className="flex justify-center gap-4 !mt-2">
                 <IconButton
                   onClick={() => handleNavigation((currentIndex - 1 + totalSlides) % totalSlides)}
                   className="!bg-edu-primary !text-white hover:!bg-edu-dark shadow-lg"
@@ -299,13 +328,13 @@ const AppShowcase = ({ app, index }: { app: typeof PRODUCTS[0]; index: number })
                 style={{ width: 80, height: 80, objectFit: 'cover' }}
               />
               <Box>
-                <Typography variant="h3" className="font-bold text-edu-dark !font-minimal" sx={{fontSize:{xs:'2.4rem',md:'3rem'}}}>
+                <Typography variant="h3" className="font-bold text-edu-dark !font-minimal" sx={{fontSize:{xs:'2.2rem',md:'3rem'}}}>
                   {app.name}
                 </Typography>
                 <Chip
                   icon={<CategoryIcon />}
                   label={app.category}
-                  className="mt-2 bg-edu-light text-edu-primary"
+                  className="mt-2 bg-edu-light !text-edu-primary"
                 />
               </Box>
             </Box>
@@ -385,6 +414,15 @@ const Products: React.FC = () => {
     });
   }, []); 
 
+
+
+
+    return (
+    <>
+    <p className='text-center py-5 my-5 font-mono'>coming soon</p>
+    </>
+  )
+
   return (
     <>
       <Box className="min-h-screen bg-white">
@@ -396,7 +434,7 @@ const Products: React.FC = () => {
              <Box className="text-center space-y-4 flex flex-col items-center">
             <Typography
               variant="h2"
-              className="text-white font-bold !mb-4 !font-display"
+              className="text-white font-bold !font-display"
               sx={{ fontSize: { xs: '2.5rem', md: '3.5rem' } }}
             >
               Our Mobile Applications
