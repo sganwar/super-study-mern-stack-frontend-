@@ -251,7 +251,7 @@ const Home: React.FC = () => {
               child in need. Be the reason a student succeeds.
             </Typography>
 
-            <Box className="flex justify-center md:justify-start">
+            <Box className="hidden flex justify-center md:justify-start">
               <Button
                 onClick={() => setShowManualCouponFetchModal(true)}
                 variant="contained"

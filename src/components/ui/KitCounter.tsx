@@ -63,7 +63,7 @@ const KitCounter: React.FC<KitCounterProps> = React.memo(
           <Box className="text-center">
             <Typography
               variant="h5"
-              className="!font-bold text-center !mb-6 !font-modern !tracking-tight"
+              className="hidden !font-bold text-center !mb-6 !font-modern !tracking-tight"
               sx={{ color: 'var(--edu-primary)' }}
             >
              Donate kit and get Super Gold Coupon for Super Gold app!
