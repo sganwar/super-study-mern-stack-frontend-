@@ -1,13 +1,12 @@
 // hooks/useCoupon.ts
 import { useQuery } from "@tanstack/react-query";
-const IS_TESTING = true
+const IS_TESTING = false
 /*webhook+controller*/
 // const API_BASE_URL = "https://super-green-mern-stack-backend.onrender.com/api/coupon/";
 // const API_BASE_URL = "http://localhost:5000/api/coupon/";
 /* without webhook, single controller*/
-const API_BASE_URL =
-  "https://super-green-mern-stack-backend.onrender.com/api/coupon/instant/";
-// const API_BASE_URL = "http://localhost:5000/api/coupon/instant/";
+// const API_BASE_URL ="https://super-green-mern-stack-backend.onrender.com/api/coupon/instant/";
+const API_BASE_URL = "http://localhost:5000/api/coupon/instant/";
 
 const fetchCoupon = async (paymentId: string): Promise<{ coupon: string }> => {
   // --- MOCK RESPONSE FOR FRONTEND TESTING ---
