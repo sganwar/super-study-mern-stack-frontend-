@@ -9,6 +9,12 @@ import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Products from './pages/Products';
+import TermsAndConditions from './pages/TermsAndConditions';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import ShippingPolicy from './pages/ShippingPolicy';
+import CancellationAndRefunds from './pages/CancellationAndRefunds';
+import ContactUs from './pages/ContactUs';
+import NotFound from './pages/NotFound';
 import Loader from './components/ui/Loader';
 import './assets/styles/global.scss'
 
@@ -55,6 +61,12 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/products" element={<Products />} />
+                <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+                <Route path="//privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/shipping-policy" element={<ShippingPolicy />} />
+                <Route path="/cancellation-and-refunds" element={<CancellationAndRefunds />} />
+                <Route path="/contact-us" element={<ContactUs />} />
+                <Route path="*" element={<NotFound/>} />
               </Routes>
             {/* </Suspense> */}
 
