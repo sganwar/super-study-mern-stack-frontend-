@@ -14,59 +14,6 @@ const EDU_BACKGROUND_COLOR = 'rgb(17, 24, 39)'; // gray-900
 
 const Footer: React.FC = () => {
 
-return(
-   <Box 
-      component="footer" 
-      // Apply dark background and a prominent blue accent border (increased size for emphasis)
-      className="bg-gray-900 text-white mt-auto border-t-4 border-[#5f5f5f]" 
-      sx={{ backgroundColor: EDU_BACKGROUND_COLOR }}
-    >
-      <Container maxWidth="lg" className="py-12"> {/* Increased vertical padding for better spacing */}
-        {/* Main Footer Content Row */}
-        <Box className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-16"> {/* Increased gap for desktop */}
-          
-          {/* 1. Brand Section (Takes up designated space) */}
-          <Box className="flex-1 min-w-0 lg:max-w-xs"> {/* Capping max width for brand text on large screens for readability */}
-            <Box className="flex items-center gap-3 mb-4">
-              <SchoolIcon fontSize='large' className="text-4xl text-edu-primary" />
-              <Typography variant="h5" className="font-extrabold text-white tracking-wider">
-                Super Study
-              </Typography>
-            </Box>
-            <Typography variant="body2" className="text-gray-300 leading-relaxed !mb-6"> 
-              Empowering education through generous donations - one kit at a time. Join our community and support our mission.
-            </Typography>
-            </Box>
-
-                {/* Policies Section */}
-    <Stack spacing={0.3} className="min-w-28">
-      <Typography variant="h6" className="!font-light text-white text-sm border-b border-blue-400/50 pb-0">
-        Policies
-      </Typography>
-      <Link component={RouterLink} to={"/terms-and-conditions"} className="text-gray-300 hover:text-blue-400 transition-colors text-sm" underline="none" color="inherit">
-        Terms & Conditions
-      </Link>
-      <Link component={RouterLink} to={"/privacy-policy"} className="text-gray-300 hover:text-blue-400 transition-colors text-sm" underline="none" color="inherit">
-        Privacy Policy
-      </Link>
-      <Link component={RouterLink} to={"/shipping-policy"} className="text-gray-300 hover:text-blue-400 transition-colors text-sm" underline="none" color="inherit">
-        Shipping / Delivery Policy
-      </Link>
-      <Link component={RouterLink} to={"/cancellation-and-refunds"} className="text-gray-300 hover:text-blue-400 transition-colors text-sm" underline="none" color="inherit">
-        Cancellation & Refund
-      </Link>
-      <Link component={RouterLink} to={"/contact-us"} className="text-gray-300 hover:text-blue-400 transition-colors text-sm" underline="none" color="inherit">
-        Contact Us
-      </Link>
-    </Stack>
-    
-            </Box>
-            </Container>
-            </Box>
-)
-
-
-
   return (
     <Box 
       component="footer" 

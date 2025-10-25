@@ -54,7 +54,7 @@ const KitCounter: React.FC<KitCounterProps> = React.memo(
     return (
       <Grow in={true} timeout={800}>
         <Box
-          className="bg-gradient-to-br from-white to-sky-50/70 rounded-3xl shadow-2xl p-6 md:p-8 border border-sky-100"
+          className="kit-counter-section bg-gradient-to-br from-white to-sky-50/70 rounded-xl shadow-2xl p-6 md:p-8 border border-sky-100"
           sx={{
             '--edu-primary': '#1565C0',
             '--edu-dark': '#0D47A1',
@@ -63,10 +63,10 @@ const KitCounter: React.FC<KitCounterProps> = React.memo(
           <Box className="text-center">
             <Typography
               variant="h5"
-              className="hidden !font-bold text-center !mb-6 !font-modern !tracking-tight"
+              className="!font-bold text-center !mb-6 !font-modern !tracking-tight"
               sx={{ color: 'var(--edu-primary)' }}
             >
-             Donate kit and get Super Gold Coupon for Super Gold app!
+             Donate & get Super Coupon for Super Gold app!
             </Typography>
 
             {/* ---- FIXED PERFECTLY CENTERED CIRCULAR SECTION ---- */}
@@ -115,7 +115,7 @@ const KitCounter: React.FC<KitCounterProps> = React.memo(
 
                 {/* Center content */}
                 <Box
-                  className=""
+                  className="px-2"
                   sx={{
                     zIndex: 2,
                     display: "flex",
@@ -129,17 +129,17 @@ const KitCounter: React.FC<KitCounterProps> = React.memo(
                     sx={{ color: "var(--edu-primary)" }}
                   />
                   <Typography
-                    variant="h3"
-                    className="font-extrabold"
-                    sx={{ color: "var(--edu-primary)" }}
-                  >
-                    {selectedCount}
-                  </Typography>
+  variant="h3"
+  className="font-extrabold text-edu-primary flex items-center gap-2">
+  <span className="text-5xl">{selectedCount}</span>
+  <span className="text-lg font-normal">{selectedCount === 1 ? 'Kit' : 'Kits'}</span>
+</Typography>
+
                   <Typography
-                    variant="body2"
+                    variant="h4"
                     className="text-gray-600 font-semibold"
                   >
-                    {selectedCount === 1 ? "Kit" : "Kits"}
+                     ₹{calculatePrice(selectedCount)}
                   </Typography>
                 </Box>
               </Box>
@@ -185,24 +185,49 @@ const KitCounter: React.FC<KitCounterProps> = React.memo(
                 step={1}
                 valueLabelDisplay="auto"
                 sx={{
-                  color: 'var(--edu-primary)',
-                  '& .MuiSlider-thumb': {
-                    backgroundColor: 'var(--edu-primary)',
-                  },
-                  '& .MuiSlider-track': {
-                    backgroundColor: 'var(--edu-primary)',
-                  },
-                }}
+    color: 'var(--edu-primary)',
+    height: 10, // <-- increase height (default ~4px)
+    '& .MuiSlider-rail': {
+      height: 10,
+      borderRadius: 4,
+      opacity:5
+    },
+    '& .MuiSlider-track': {
+      height: 10,
+      borderRadius: 4,
+    },
+    '& .MuiSlider-thumb': {
+      width: 20,
+      height: 20,
+      backgroundColor: 'var(--edu-primary)',
+      '&:focus, &:hover, &.Mui-active': {
+        boxShadow: '0 0 0 8px rgba(21, 101, 192, 0.16)',
+      },
+    },
+    '& .MuiSlider-mark': {
+      height: 5,
+      width: 2,
+      backgroundColor: '#fff',
+      borderRadius: 2,
+    },
+    '& .MuiSlider-mark[data-index="0"]': {
+      left: '1% !important',
+    },
+    '& .MuiSlider-mark[data-index="9"]': {
+      left: '99% !important', // last mark
+    },
+  }}
               />
             </Box>
 
+{/* HIDDEN */}
             {/* Impact Details */}
-            <Box className="flex justify-between items-center bg-sky-50 p-4 rounded-xl mb-6 shadow-inner">
+            <Box className="hidden flex justify-between items-center bg-sky-50 p-4 rounded-lg mb-6 shadow-inner">
               <Box className="text-left">
                 <Typography variant="subtitle1" className="font-bold text-gray-700">
                   Total Price
                 </Typography>
-                <Typography variant="h5" className="font-extrabold" sx={{ color: 'var(--edu-dark)' }}>
+                <Typography variant="h6" className="font-extrabold" sx={{ color: 'var(--edu-dark)' }}>
                   ₹{calculatePrice(selectedCount)}
                 </Typography>
               </Box>
@@ -210,7 +235,7 @@ const KitCounter: React.FC<KitCounterProps> = React.memo(
                 <Typography variant="subtitle1" className="font-bold text-gray-700">
                   Beneficiaries
                 </Typography>
-                <Typography variant="h5" className="font-extrabold" sx={{ color: 'var(--edu-dark)' }}>
+                <Typography variant="h6" className="font-extrabold" sx={{ color: 'var(--edu-dark)' }}>
                   {calculateStudentsImpacted(selectedCount)}+
                 </Typography>
               </Box>
@@ -230,7 +255,7 @@ const KitCounter: React.FC<KitCounterProps> = React.memo(
                   '&:hover': { backgroundColor: 'var(--edu-dark)' }
                 }}
               >
-                Donate {selectedCount} Kit{selectedCount > 1 ? "s" : ""}
+                Donate {selectedCount} Kit{selectedCount > 1 ? "s" : ""} for ₹{calculatePrice(selectedCount)}
               </Button>
             </Box>
           </Box>
@@ -240,4 +265,4 @@ const KitCounter: React.FC<KitCounterProps> = React.memo(
   }
 );
 
-export default KitCounter;
+export default KitCounter; 

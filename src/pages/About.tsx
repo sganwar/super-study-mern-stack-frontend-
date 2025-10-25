@@ -42,14 +42,6 @@ const regions = [
 // --- REACT COMPONENT ---
 const About: React.FC = () => {
   // All Next.js imports and logic have been removed.
-  
-
-      return (
-    <>
-    <p className='text-center py-5 my-5 font-mono'>coming soon</p>
-    </>
-  )
-
 
   return (
     <>

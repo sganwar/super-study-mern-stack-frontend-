@@ -90,8 +90,8 @@ const Home: React.FC = () => {
     const options = {
       "key": "rzp_live_RJpArHowLAOS2l", // live mode public key
       // "key": "rzp_test_RJp1B7TPct9hmi", //test mode public key
-      // "amount": (calculatePrice(selectedCount) * 100).toString(), //live mdoe
-      "amount": 100, //test mode
+      "amount": (calculatePrice(selectedCount) * 100).toString(), //live mdoe
+      // "amount": 100, //test mode
       "name": "Super Study",
       "image": PUBLIC_LOGO,
       "description": `Donate ${selectedCount} Kit${selectedCount > 1 ? 's' : ''}`,
@@ -251,7 +251,7 @@ const Home: React.FC = () => {
               child in need. Be the reason a student succeeds.
             </Typography>
 
-            <Box className="hidden flex justify-center md:justify-start">
+            <Box className="flex justify-center md:justify-start">
               <Button
                 onClick={() => setShowManualCouponFetchModal(true)}
                 variant="contained"
@@ -287,7 +287,7 @@ const Home: React.FC = () => {
 
 {/* Kit Counter section */}
      
-      <Container maxWidth="lg" className="py-16 relative">
+      <Container maxWidth="lg" className="py-16 !px-0 relative">
         
         <Box ref={kitCounterSectionRef} className="text-center mb-2 pt-16">
           {/* <Typography variant="h4" className="!tracking-tight text-nature-primary font-bold mb-4 !font-modern">

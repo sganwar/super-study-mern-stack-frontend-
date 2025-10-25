@@ -12,6 +12,7 @@
   --edu-sky: #42A5F5;
   --edu-purple: #9C27B0;
   --edu-teal: #26A69A;
+  --gold-bit-coin-image:url('/gold-cards.jpg')
 }
 
 * {
@@ -44,8 +45,9 @@ a {
 }
 
 .kit-counter-section {
-  background: linear-gradient(135deg, #1565C0 0%, #42A5F5 50%, #7B1FA2 100%);
-  border-radius: 20px;
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0,1),rgba(0,0,0,0.3)),var(--gold-bit-coin-image);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .navigation-drawer-section {

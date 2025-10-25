@@ -414,15 +414,6 @@ const Products: React.FC = () => {
     });
   }, []); 
 
-
-
-
-    return (
-    <>
-    <p className='text-center py-5 my-5 font-mono'>coming soon</p>
-    </>
-  )
-
   return (
     <>
       <Box className="min-h-screen bg-white">
