@@ -13,7 +13,7 @@ import {
   useMediaQuery,
   useTheme
 } from '@mui/material';
-import { Menu as MenuIcon, Close as CloseIcon, School as SchoolIcon, MenuBook as BookIcon } from '@mui/icons-material';
+import { Menu as MenuIcon, Close as CloseIcon, School as SchoolIcon } from '@mui/icons-material';
 
 const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -29,14 +29,15 @@ const Navbar: React.FC = () => {
     { text: 'Home', path: '/' },
     { text: 'About', path: '/about' },
     { text: 'Apps', path: '/products' },
+    { text: 'Contact', path: '/contact-us'}
   ];
 
   const drawer = (
     <Box
-      className="navigation-drawer-section bg-edu-light h-full"
+      className="navigation-drawer-section h-full"
       sx={{ textAlign: 'center' }}
     >
-      <Box className="flex items-center justify-between p-2 border-b border-edu-primary/20">
+      <Box className="flex items-center justify-between py-3 px-3 border-b border-edu-primary">
         <Box className="flex items-center gap-2">
           <SchoolIcon className="text-edu-primary text-3xl" />
           <Typography variant="h6" className="text-edu-primary font-bold">
@@ -46,20 +47,21 @@ const Navbar: React.FC = () => {
         <IconButton
           aria-label="close drawer"
           onClick={handleDrawerToggle}
-          className="bg-transparent border border-edu-primary rounded-full p-2 hover:bg-edu-primary/10 transition-colors"
+          className="!bg-white/80 !border !border-white !rounded-md !p-0 hover:bg-edu-primary/10 transition-colors"
         >
-          <CloseIcon fontSize="medium" className="text-edu-primary" />
+          <CloseIcon className="text-edu-primary !p-0" sx={{height:'2rem',width:'2rem'}} />
         </IconButton>
       </Box>
 
-      <List className="pt-8 !px-4">
+      <List className="!pt-8 !px-4 flex flex-col items-center">
         {menuItems.map((item) => (
           <ListItem
             key={item.text}
             component={Link}
             to={item.path}
             onClick={handleDrawerToggle}
-            className={`mb-2 rounded-lg transition-all duration-300 hover:bg-edu-dark hover:text-white ${location.pathname === item.path ? 'bg-edu-primary !text-white' : 'text-edu-dark bg-white bg-opacity-50'
+            sx={{width:'90%'}}
+            className={`mb-2 rounded-lg transition-all duration-300 hover:bg-edu-dark hover:text-white ${location.pathname === item.path ? 'bg-edu-dark text-white' : 'text-edu-dark bg-white bg-opacity-100'
               }`}
           >
             <ListItemText
@@ -74,10 +76,9 @@ const Navbar: React.FC = () => {
       </List>
 
       <Box className="absolute bottom-8 left-4 right-4">
-        <Box className="card-edu text-center bg-[rgba(173,216,230,0.7)] bg-opacity-50">
-          <BookIcon className="text-edu-primary text-4xl mb-2 animate-bounce-slow" />
-          <Typography variant="body2" className="text-edu-dark">
-            📚 Empowering education, one kit at a time
+        <Box className="card-edu text-center !p-3 !bg-[rgba(100, 100, 100, 0.5)] !rounded-md">
+          <Typography variant="body2" className="text-edu-dark !font-mono tracking-tighter">
+             Donate and get super coupon
           </Typography>
         </Box>
       </Box>
@@ -91,7 +92,8 @@ const Navbar: React.FC = () => {
         className="bg-white shadow-lg"
         sx={{ backgroundColor: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(10px)' }}
       >
-        <Toolbar className="px-4 md:px-8">
+        <Toolbar className="px-4 md:px-8 flex justify-between"> {/* ADDED justify-between FOR BETTER LAYOUT */}
+          {/* 1. Logo/Title (Left Side) */}
           <Box className="flex items-center gap-3">
             <Link to="/">
               <SchoolIcon fontSize='large' className="text-edu-primary text-4xl cursor-pointer" />
@@ -106,9 +108,11 @@ const Navbar: React.FC = () => {
             </Typography>
           </Box>
 
-          <Box className="ml-auto">
+          {/* 2. Desktop Menu (Center) OR Mobile Menu Button (Right) */}
+          <Box className="ml-auto"> {/* Keep ml-auto for mobile button placement */}
             {!isMobile ? (
-              <Box className="flex gap-6">
+              // DESKTOP MENU - MOVED TO CENTER POSITION
+              <Box className="flex gap-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 {menuItems.map((item) => (
                   <Link
                     key={item.text}
@@ -123,6 +127,7 @@ const Navbar: React.FC = () => {
                 ))}
               </Box>
             ) : (
+              // MOBILE MENU BUTTON (Right Side)
               <IconButton
                 color="inherit"
                 aria-label="open drawer"
@@ -149,7 +154,7 @@ const Navbar: React.FC = () => {
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: 280,
-            background: 'var(--edu-light)',
+            boxShadow:'black -2rem 0rem 8rem',
           },
         }}
       >

@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
         About
       </Link>
       <Link component={RouterLink} to={"/products"} className="text-gray-300 hover:text-blue-400 transition-colors text-sm" underline="none" color="inherit">
-        Products
+        Apps / Products
       </Link>
     </Stack>
 
@@ -110,7 +110,7 @@ const Footer: React.FC = () => {
         className="text-gray-300 hover:text-blue-400 transition-colors text-sm"
         underline="none" color="inherit"
       >
-        Super App
+        Super Intelligent App
       </Link>
       <Link
         href="https://play.google.com/store/apps/details?id=com.superbillionaire.game"

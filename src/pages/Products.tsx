@@ -47,7 +47,7 @@ const PRODUCTS = [
     name: 'Super Gold',
     category: 'Casual Gaming',
     description: 'Dive into an exciting world of fortune and fun! Collect gold, unlock rewards, and experience thrilling gameplay with stunning visuals and smooth mechanics.',
-    downloads: '100+',
+    downloads: '500+',
     rating: 5.0,
     size: '171 MB',
     ageRating: '3+',

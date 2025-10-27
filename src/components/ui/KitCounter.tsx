@@ -175,7 +175,7 @@ const KitCounter: React.FC<KitCounterProps> = React.memo(
             </Box>
 
             {/* Range Slider */}
-            <Box className="mb-8 px-4">
+            <Box className="mb-0 px-4">
               <Slider
                 value={selectedCount}
                 onChange={handleSliderChange}

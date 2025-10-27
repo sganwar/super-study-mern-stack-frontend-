@@ -204,15 +204,20 @@ const Home: React.FC = () => {
   }, [isCouponError, couponError, paymentId, lastManualSubmission]);
 
 
-  // useefect for navigating to kit counter section initially
-  useEffect(() => {
-    // Scroll to other section on page load
-    const timer = setTimeout(()=>{
+  
+// // useefect for navigating to kit counter section initially
+// useEffect(() => {
+//     // Scroll to other section on page load
+//     const timer = setTimeout(() => {
+//       // Check if the user is at the ABSOLUTE top (scroll position = 0)
+//       const isAtTop = window.scrollY === 0 && document.documentElement.scrollTop === 0;
 
-      kitCounterSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-    },3000)
-    return ()=>clearTimeout(timer)
-  }, []);
+//       if (isAtTop) {
+//         kitCounterSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+//       }
+//     }, 3000);
+//     return () => clearTimeout(timer);
+//   }, []);
 
   
   return (
@@ -287,9 +292,9 @@ const Home: React.FC = () => {
 
 {/* Kit Counter section */}
      
-      <Container maxWidth="lg" className="py-16 !px-0 relative">
+      <Container maxWidth="lg" className="py-16 !px-1 relative">
         
-        <Box ref={kitCounterSectionRef} className="text-center mb-2 pt-16">
+        <Box id="donation-section" ref={kitCounterSectionRef} className="text-center mb-2 pt-16">
           {/* <Typography variant="h4" className="!tracking-tight text-nature-primary font-bold mb-4 !font-modern">
             Choose Your Education Impact
           </Typography> */}

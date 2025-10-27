@@ -166,7 +166,7 @@ const About: React.FC = () => {
             <Grid container spacing={{xs:1,md:4}} className='items-center'>
               {regions.map((region, idx) => (
                 <Grid size={{xs: 12, sm: 6, md: 3}} key={idx}> {/* CORRECTED Grid Item */}
-                  <Box className="bg-white/10 backdrop-blur-sm p-6 rounded-xl text-center hover:bg-white/20 transition-all">
+                  <Box className="bg-white/10 backdrop-blur-sm py-2 rounded-xl text-center hover:bg-white/20 transition-all">
                     <Typography variant="h6" className="!font-thin !font-accent tracking-tight">
                       {region}
                     </Typography>
